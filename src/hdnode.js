@@ -13,8 +13,10 @@ var ecurve = require('ecurve')
 var curve = ecurve.getCurveByName('secp256k1')
 
 function HDNode (keyPair, chainCode) {
+  // HACK: Disable this type check because it throws a false positive on React Native
   typeforce(types.tuple('ECPair', types.Buffer256bit), arguments)
-
+  // END HACK
+  
   if (!keyPair.compressed) throw new TypeError('BIP32 only allows compressed keyPairs')
 
   this.keyPair = keyPair
